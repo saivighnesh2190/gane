@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesticide Information</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .container {
+            margin-top: 50px;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #007bff;
+            transition: color 0.3s;
+        }
+        h1:hover {
+            color: #0056b3;
+        }
+        .benefits {
+            margin-top: 20px;
+        }
+        .pesticide-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+        .pesticide-image:hover {
+            transform: scale(1.05);
+        }
+        .btn-custom {
+            background-color: #28a745;
+            color: white;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        .list-group-item {
+            transition: background-color 0.3s;
+        }
+        .list-group-item:hover {
+            background-color: #e9ecef;
+        }
+        #pesticideRequirement {
+            font-weight: bold;
+            margin-top: 20px;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container text-center">
+    <h1>Pesticide Information</h1>
+    <img src="https://example.com/pesticide-image.jpg" alt="Pesticide" class="pesticide-image">
+
+    <h2 class="benefits">Benefits of Pesticides:</h2>
+    <ul class="list-group benefits">
+        <li class="list-group-item">Protects crops from pests and diseases.</li>
+        <li class="list-group-item">Increases crop yield and quality.</li>
+        <li class="list-group-item">Prevents loss of harvest.</li>
+        <li class="list-group-item">Cost-effective pest management solution.</li>
+    </ul>
+
+    <h3>Price: ₹200 per liter</h3>
+
+    <div class="form-group">
+        <label for="cropType">Select Crop Type:</label>
+        <select id="cropType" class="form-control" onchange="updatePesticideRequirement()">
+            <option value="">-- Select Crop Type --</option>
+            <option value="vegetables">Vegetables (1.5 liters/acre)</option>
+            <option value="fruits">Fruits (2 liters/acre)</option>
+            <option value="grains">Grains (1 liter/acre)</option>
+            <option value="flowers">Flowers (1.2 liters/acre)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="pesticideType">Select Pesticide Type:</label>
+        <select id="pesticideType" class="form-control">
+            <option value="">-- Select Pesticide Type --</option>
+            <option value="insecticide">Insecticide</option>
+            <option value="herbicide">Herbicide</option>
+            <option value="fungicide">Fungicide</option>
+            <option value="acaricide">Acaricide</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="quantity">Select Quantity (in liters):</label>
+        <input type="number" id="quantity" class="form-control" min="1" value="1">
+    </div>
+
+    <button class="btn btn-custom" onclick="calculatePrice()">Get Price</button>
+
+    <div id="pesticideRequirement" class="mt-3"></div>
+</div>
+
+<!-- Popup Modal -->
+<div class="modal fade" id="priceModal" tabindex="-1" aria-labelledby="priceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="priceModalLabel">Total Price</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Total price will be displayed here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Pesticide requirements based on crop type
+const pesticideRequirements = {
+    vegetables: 1.5, // liters per acre
+    fruits: 2,
+    grains: 1,
+    flowers: 1.2
+};
+
+// Update the pesticide requirement based on selected crop type and quantity
+function updatePesticideRequirement() {
+    const cropType = document.getElementById('cropType').value;
+    const requirement = pesticideRequirements[cropType];
+    const quantity = document.getElementById('quantity').value;
+
+    if (requirement) {
+        const totalPesticideNeeded = requirement * quantity; // Total liters needed
+        document.getElementById('pesticideRequirement').innerText = `Pesticide needed for ${quantity} liter(s) on 1 acre of ${cropType}: ${totalPesticideNeeded.toFixed(2)} liters`;
+    } else {
+        document.getElementById('pesticideRequirement').innerText = '';
+    }
+}
+
+// Calculate the total price based on quantity selected
+function calculatePrice() {
+    const quantity = document.getElementById('quantity').value;
+    const pricePerLiter = 200; // Price per liter in Rupees
+    const totalPrice = quantity * pricePerLiter;
+
+    document.getElementById('modal-body').innerText = `Total Price for ${quantity} liter(s) of Pesticide: ₹${totalPrice}`;
+
+    // Show the modal
+    const modal = new bootstrap.Modal(document.getElementById('priceModal'));
+    modal.show();
+}
+</script>
+
+</body>
+</html>

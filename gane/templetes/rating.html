@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Rating with Questions</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('https://images.moneycontrol.com/static-mcnews/2018/03/star-rating.jpg?impolicy=website&width=1600&height=900');
+    background-size: cover; /* Ensure the image covers the entire background */
+    background-position: center; /* Center the background image */
+    background-attachment: fixed; /* Make the background fixed when scrolling */
+    background-color: #f8f9fa; /* Fallback background color if image isn't available */
+    color: #333;
+}
+
+        .rating-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .rating-container h2 {
+            color: #28a745;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .question {
+            margin-top: 30px;
+        }
+
+        .question h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .stars {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .stars input[type="radio"] {
+            display: none;
+        }
+
+        .stars label {
+            font-size: 2rem;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .stars input[type="radio"]:checked ~ label {
+            color: #ffc107;
+        }
+
+        .stars label:hover, .stars label:hover ~ label {
+            color: #ffc107;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .stars label {
+                font-size: 1.5rem;
+            }
+
+            .submit-btn {
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Rating Form -->
+    <div class="rating-container">
+        <h2>Rate Our Service</h2>
+
+        <!-- Question 1: Quality of Service -->
+        <div class="question">
+            <h4>1. How would you rate the quality of our service?</h4>
+            <div class="stars">
+                <input type="radio" id="star5-q1" name="rating-q1" value="5"><label for="star5-q1" title="5 stars">&#9733;</label>
+                <input type="radio" id="star4-q1" name="rating-q1" value="4"><label for="star4-q1" title="4 stars">&#9733;</label>
+                <input type="radio" id="star3-q1" name="rating-q1" value="3"><label for="star3-q1" title="3 stars">&#9733;</label>
+                <input type="radio" id="star2-q1" name="rating-q1" value="2"><label for="star2-q1" title="2 stars">&#9733;</label>
+                <input type="radio" id="star1-q1" name="rating-q1" value="1"><label for="star1-q1" title="1 star">&#9733;</label>
+            </div>
+        </div>
+
+        <!-- Question 2: Staff Friendliness -->
+        <div class="question">
+            <h4>2. What is your rating about interface of our website ?</h4>
+            <div class="stars">
+                <input type="radio" id="star5-q2" name="rating-q2" value="5"><label for="star5-q2" title="5 stars">&#9733;</label>
+                <input type="radio" id="star4-q2" name="rating-q2" value="4"><label for="star4-q2" title="4 stars">&#9733;</label>
+                <input type="radio" id="star3-q2" name="rating-q2" value="3"><label for="star3-q2" title="3 stars">&#9733;</label>
+                <input type="radio" id="star2-q2" name="rating-q2" value="2"><label for="star2-q2" title="2 stars">&#9733;</label>
+                <input type="radio" id="star1-q2" name="rating-q2" value="1"><label for="star1-q2" title="1 star">&#9733;</label>
+            </div>
+        </div>
+
+        <!-- Question 3: Overall Experience -->
+        <div class="question">
+            <h4>3. How would you rate your overall experience with us?</h4>
+            <div class="stars">
+                <input type="radio" id="star5-q3" name="rating-q3" value="5"><label for="star5-q3" title="5 stars">&#9733;</label>
+                <input type="radio" id="star4-q3" name="rating-q3" value="4"><label for="star4-q3" title="4 stars">&#9733;</label>
+                <input type="radio" id="star3-q3" name="rating-q3" value="3"><label for="star3-q3" title="3 stars">&#9733;</label>
+                <input type="radio" id="star2-q3" name="rating-q3" value="2"><label for="star2-q3" title="2 stars">&#9733;</label>
+                <input type="radio" id="star1-q3" name="rating-q3" value="1"><label for="star1-q3" title="1 star">&#9733;</label>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button class="submit-btn" type="button" onclick="submitRating()">Submit Your Rating</button>
+    </div>
+
+    <!-- JavaScript to Handle Submission -->
+    <script>
+        function submitRating() {
+            let ratings = {
+                q1: document.querySelector('input[name="rating-q1"]:checked') ? document.querySelector('input[name="rating-q1"]:checked').value : "No rating",
+                q2: document.querySelector('input[name="rating-q2"]:checked') ? document.querySelector('input[name="rating-q2"]:checked').value : "No rating",
+                q3: document.querySelector('input[name="rating-q3"]:checked') ? document.querySelector('input[name="rating-q3"]:checked').value : "No rating"
+            };
+            alert(Your Ratings:\nQuality of Service: ${ratings.q1}\nFriendliness of Staff: ${ratings.q2}\nOverall Experience: ${ratings.q3});
+        }
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function submitRating() {
+        let ratings = {
+            q1: document.querySelector('input[name="rating-q1"]:checked') ? document.querySelector('input[name="rating-q1"]:checked').value : "No rating",
+            q2: document.querySelector('input[name="rating-q2"]:checked') ? document.querySelector('input[name="rating-q2"]:checked').value : "No rating",
+            q3: document.querySelector('input[name="rating-q3"]:checked') ? document.querySelector('input[name="rating-q3"]:checked').value : "No rating"
+        };
+        alert(`Your Ratings:\nQuality of Service: ${ratings.q1}\nInterface of Website: ${ratings.q2}\nOverall Experience: ${ratings.q3}`);
+    }
+</script>
+</body>
+</html>

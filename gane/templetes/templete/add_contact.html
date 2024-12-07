@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Contact</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Add New Contact</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary"> <a href="{% url 'addcon' %}" class="btn btn-secondary">Add Contact</a></button>
+            <a href="{% url 'contact_list' %}" class="btn btn-secondary">Cancel</a>
+            <a href="{% url 'delete_contact' %}" class="btn btn-secondary">delete</a>
+        </form>
+    </div>
+</body>
+</html>

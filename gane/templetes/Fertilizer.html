@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fertilizer Information</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .container {
+            margin-top: 50px;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #007bff;
+            transition: color 0.3s;
+        }
+        h1:hover {
+            color: #0056b3;
+        }
+        .benefits, .fertilizer-types {
+            margin-top: 20px;
+        }
+        .fertilizer-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+        .fertilizer-image:hover {
+            transform: scale(1.05);
+        }
+        .btn-custom {
+            background-color: #28a745;
+            color: white;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        .list-group-item {
+            transition: background-color 0.3s;
+        }
+        .list-group-item:hover {
+            background-color: #e9ecef;
+        }
+        #fertilizerRequirement {
+            font-weight: bold;
+            margin-top: 20px;
+            color: #28a745;
+        }
+        .tooltip-inner {
+            max-width: 250px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container text-center">
+    <h1>Fertilizer Information</h1>
+    <img src="https://example.com/fertilizer-image.jpg" alt="Fertilizers" class="fertilizer-image">
+
+    <h2 class="benefits">Benefits of Using Fertilizers:</h2>
+    <ul class="list-group benefits">
+        <li class="list-group-item">Enhances soil fertility and crop yield.</li>
+        <li class="list-group-item">Provides essential nutrients for plant growth.</li>
+        <li class="list-group-item">Improves crop quality and resistance to diseases.</li>
+        <li class="list-group-item">Supports sustainable agricultural practices.</li>
+    </ul>
+
+    <br>
+    <br>
+    <p>----------------------------------------------------------------------------------------------------------------------------------</p>
+    <br>
+    <br>
+
+    <div class="form-group">
+        <label for="cropType">Select Crop Type:</label>
+        <select id="cropType" class="form-control" onchange="updateFertilizerOptions()">
+            <option value="">-- Select Crop Type --</option>
+            <option value="vegetables">Vegetables (1 packet/acre)</option>
+            <option value="fruits">Fruits (2 packets/acre)</option>
+            <option value="grains">Grains (1 packet/acre)</option>
+            <option value="flowers">Flowers (1 packet/acre)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="fertilizerType">Select Fertilizer Type:</label>
+        <select id="fertilizerType" class="form-control" onchange="updateFertilizerPrice()">
+            <option value="">-- Select Fertilizer Type --</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="quantity">Select Quantity (in packets):</label>
+        <input type="number" id="quantity" class="form-control" min="1" value="1">
+    </div>
+
+    <button class="btn btn-custom" onclick="calculatePrice()">Get Price</button>
+
+    <div id="fertilizerRequirement" class="mt-3"></div>
+</div>
+
+<!-- Popup Modal -->
+<div class="modal fade" id="priceModal" tabindex="-1" aria-labelledby="priceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="priceModalLabel">Total Price</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Total price will be displayed here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const fertilizerRequirements = {
+        vegetables: 1, // packets per acre
+        fruits: 2,
+        grains: 1,
+        flowers: 1
+    };
+
+    const fertilizerOptions = {
+        vegetables: [
+            { name: "Urea", price: 120, tooltip: "Urea is a nitrogen-rich fertilizer suitable for most crops." },
+            { name: "NPK", price: 150, tooltip: "NPK fertilizers contain nitrogen, phosphorus, and potassium for balanced nutrition." }
+        ],
+        fruits: [
+            { name: "NPK", price: 150, tooltip: "NPK fertilizers contain nitrogen, phosphorus, and potassium for balanced nutrition." },
+            { name: "Superphosphate", price: 130, tooltip: "Superphosphate provides essential phosphorus for root development." }
+        ],
+        grains: [
+            { name: "Urea", price: 120, tooltip: "Urea is a nitrogen-rich fertilizer suitable for most crops." },
+            { name: "Compost", price: 100, tooltip: "Organic compost improves soil structure and fertility." }
+        ],
+        flowers: [
+            { name: "Compost", price: 100, tooltip: "Organic compost improves soil structure and fertility." },
+            { name: "Superphosphate", price: 130, tooltip: "Superphosphate provides essential phosphorus for root development." }
+        ]
+    };
+
+    let selectedFertilizerPrice = 100; // Default price
+
+    function updateFertilizerOptions() {
+        const cropType = document.getElementById('cropType').value;
+        const fertilizerTypeSelect = document.getElementById('fertilizerType');
+
+        // Clear existing options
+        fertilizerTypeSelect.innerHTML = '<option value="">-- Select Fertilizer Type --</option>';
+
+        if (cropType && fertilizerOptions[cropType]) {
+            fertilizerOptions[cropType].forEach(fertilizer => {
+                const option = document.createElement('option');
+                option.value = fertilizer.name.toLowerCase();
+                option.textContent = `${fertilizer.name} - ₹${fertilizer.price}`;
+                option.setAttribute('data-price', fertilizer.price);
+                option.setAttribute('data-bs-toggle', 'tooltip');
+                option.setAttribute('data-bs-placement', 'right');
+                option.setAttribute('title', fertilizer.tooltip);
+                fertilizerTypeSelect.appendChild(option);
+            });
+        }
+    }
+
+    function updateFertilizerPrice() {
+        const fertilizerType = document.getElementById('fertilizerType');
+        const selectedOption = fertilizerType.options[fertilizerType.selectedIndex];
+        selectedFertilizerPrice = selectedOption.getAttribute('data-price') || 100; // Get price from selected option
+    }
+
+    function calculatePrice() {
+        const quantity = document.getElementById('quantity').value;
+        const totalPrice = quantity * selectedFertilizerPrice;
+
+        document.getElementById('modal-body').innerText = `Total Price for ${quantity} packet(s) of Fertilizer: ₹${totalPrice}`;
+        const modal = new bootstrap.Modal(document.getElementById('priceModal'));
+        modal.show();
+    }
+
+    // Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+</script>
+
+</body>
+</html>

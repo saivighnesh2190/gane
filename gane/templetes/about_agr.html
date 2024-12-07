@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture Information and Product Details</title>
+    <!-- Bootstrap CSS for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            left: 0;
+        }
+        .product-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            width: 600px;
+            background: rgb(228, 217, 217);
+        }
+        .product-info {
+            flex: 1;
+        }
+        .product-image {
+            flex-basis: 200px; /* Fixed width for images */
+            margin-left: 20px; /* Space between text and image */
+        }
+        .product-image img {
+            max-width: 100%; /* Responsive image */
+            height: auto;
+        }
+        .about-agriculture {
+            background-color: #f4f4f4; /* Light grey background */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        .about-agriculture h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .about-agriculture p {
+            text-align: justify;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .seasonal-table {
+            margin-top: 20px;
+        }
+        .seasonal-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .seasonal-table th, .seasonal-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .seasonal-table th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">PFSD Project</a>
+            <!-- Other nav content here -->
+        </div>
+    </nav>
+
+
+
+
+        <!-- About Agriculture Section -->
+        <div class="about-agriculture">
+            <h2>About Agriculture</h2>
+            <p>Agriculture is the backbone of many countries' economies, providing food, raw materials, and employment to millions of people. It involves cultivating soil, growing crops, and raising animals for food, fiber, and other products. As global challenges such as population growth and climate change arise, agriculture must evolve with sustainable practices to ensure food security for future generations.</p>
+
+            <h3>Seasonal Cultivation Guide</h3>
+            <p>Different crops are cultivated based on seasonal conditions, and choosing the right time for planting is crucial to maximizing yield and ensuring healthy crops. Here's a basic guide for which crops are best grown during specific seasons:</p>
+
+            <!-- Table for Seasonal Crops -->
+            <div class="seasonal-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Season</th>
+                            <th>Major Crops</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**Kharif (Monsoon)** <br> (June - October)</td>
+                            <td>Rice, Maize, Cotton, Millet, Soybean, Groundnut</td>
+                            <td>During the monsoon season, crops that require more water such as rice are cultivated. Kharif crops are rain-fed.</td>
+                        </tr>
+                        <tr>
+                            <td>**Rabi (Winter)** <br> (October - March)</td>
+                            <td>Wheat, Barley, Mustard, Peas, Gram</td>
+                            <td>Rabi crops are grown in cooler climates with irrigation. They are harvested in the spring.</td>
+                        </tr>
+                        <tr>
+                            <td>**Zaid (Summer)** <br> (March - June)</td>
+                            <td>Fruits (Watermelon, Cucumber), Vegetables (Pumpkin, Bitter Gourd)</td>
+                            <td>These are short-season crops grown between Rabi and Kharif seasons in areas with adequate irrigation.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Sustainable Agricultural Practices</h3>
+            <p>Sustainable farming involves techniques that protect the environment, public health, and animal welfare while also making farms profitable and communities strong. These methods include:</p>
+            <ul>
+                <li>**Crop Rotation**: Changing the types of crops grown in a specific field from season to season to maintain soil fertility and reduce pests.</li>
+                <li>**Organic Farming**: Using natural fertilizers like compost and biological pest control methods instead of synthetic chemicals.</li>
+                <li>**Precision Farming**: Leveraging data and technology to optimize the use of water, seeds, and fertilizers to increase crop yield and reduce waste.</li>
+                <li>**Agroforestry**: Integrating trees and shrubs into agricultural landscapes to enhance biodiversity and reduce erosion.</li>
+            </ul>
+
+            <h3>The Importance of Modern Agriculture</h3>
+            <p>Modern agriculture has brought remarkable productivity gains through innovations such as genetically modified crops, precision agriculture, and advanced irrigation systems. However, it's essential to balance these advances with practices that safeguard ecosystems and address challenges such as soil degradation, water scarcity, and biodiversity loss.</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
